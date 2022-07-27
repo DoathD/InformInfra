@@ -1,0 +1,19 @@
+---
+# tasks file for create_networks
+
+
+- name: network for nginx
+  docker_network:
+    name: "{{ network_nginx }}"
+    state: present
+
+
+- name: network for wordpress
+  docker_network:
+    name: "{{ network_wordpress }}"
+    state: present
+
+- name: network for postgres
+  docker_network:
+    name: "{{ network_postgres }}"
+    state: present

@@ -1,0 +1,11 @@
+---
+- name: Main playbook
+  hosts: servers
+  become: yes
+
+  roles:
+    - install_docker
+    - create_networks
+    - deploy_nginx  
+    - deploy_postgres
+    - deploy_wordpress  

@@ -1,0 +1,47 @@
+
+---
+# tasks file for deploy_postgres
+
+- name: Pull image Postgres
+  docker_image:
+     name: postgres:latest
+     source: pull
+
+- name: Pull image pgAdmin
+  docker_image:
+     name: dpage/pgadmin4
+     source: pull
+
+- name: Create Docker Postgres
+  docker_container:
+     name: postgres         
+     image: postgres:latest
+     ports:
+       - "{{ postgres_port }}:{{ postgres_port }}"
+     volumes:
+       - /volumes/postgres:/var/lib/postgresql/data
+     env:
+       POSTGRES_DB: "{{ postgres_db_name }}"
+       POSTGRES_USER: "{{ postgres_db_username }}"
+       POSTGRES_PASSWORD: "{{ postgres_db_pass }}"
+     networks:
+       - name: "{{ network_postgres }}"
+     memory: "{{ postgres_db_memory }}"
+     restart_policy: always
+     keep_volumes: yes
+     state: started
+
+- name: Create Docker PgAdmin
+  docker_container:
+     name: PgAdmin
+     image: dpage/pgadmin4
+     ports:
+       - "{{ postgres_pg_port }}:80"
+     env:
+       PGADMIN_DEFAULT_EMAIL: "{{ postgres_pg_mail }}"
+       PGADMIN_DEFAULT_PASSWORD: "{{ postgres_pg_pass }}"
+     networks:
+       - name: "{{ network_postgres }}"
+     memory: "{{ postgres_pg_memory }}"
+     restart_policy: always
+     state: started

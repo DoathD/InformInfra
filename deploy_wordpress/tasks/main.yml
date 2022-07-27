@@ -1,0 +1,72 @@
+
+---
+# tasks file for deploy_wordpress
+- name: Pull image WordPress
+  docker_image:
+     name: wordpress:latest
+     source: pull
+
+- name: Pull image mysql
+  docker_image:
+     name: mysql:latest
+     source: pull
+
+- name: Pull image phpadmin
+  docker_image:
+     name: phpmyadmin:latest
+     source: pull
+
+
+- name: Create Docker Mysql
+  docker_container:
+     name: mysql
+     image: mysql:latest
+     networks:
+       - name: "{{ network_wordpress }}"
+     volumes:
+       - /volumes/mysql:/var/lib/mysql
+     env:
+       MYSQL_ROOT_PASSWORD: "{{ wordpress_mysql_passroot }}"
+       MYSQL_DATABASE: "{{ wordpress_mysql_db }}"
+       MYSQL_USER: "{{ wordpress_mysql_user }}"
+       MYSQL_USER_PASSWORD: "{{ wordpress_mysql_userpass }}"
+     memory: "{{ wordpress_mysql_memory }}"
+     keep_volumes: yes
+     restart_policy: always
+     state: started
+
+- name: Create Docker phpadmin
+  docker_container:
+     name: phpadmin
+     image: phpmyadmin:latest
+     env:
+       PMA_HOST: mysql:3306
+       MYSQL_ROOT_PASSWORD: "{{ wordpress_mysql_passroot }}"
+     ports:
+       - "{{ wordpress_phpadmin_port }}:80"
+     networks:
+       - name: "{{ network_wordpress }}"
+     memory: "{{ wordpress_phpadmin_memory }}"
+     restart_policy: always
+     state: started
+
+
+- name: Create Docker Wordpress
+  docker_container:
+     name: wordpress
+     image: wordpress:latest
+     ports:
+       - "{{ wordpress_port }}:80"
+     volumes:
+       - /volumes/wordpress:/var/www/html
+     env:
+       WORDPRESS_DB_HOST: mysql:3306
+       WORDPRESS_DB_NAME: "{{ wordpress_mysql_db }}"
+       WORDPRESS_DB_USER: "{{ wordpress_mysql_user }}"
+       WORDPRESS_DB_PASSWORD: "{{ wordpress_mysql_userpass }}"
+     networks:
+       - name: "{{ network_wordpress }}"
+     memory: "{{ wordpress_memory }}"
+     restart_policy: always
+     keep_volumes: yes
+     state: started

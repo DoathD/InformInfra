@@ -1,0 +1,4 @@
+---
+network_nginx: nginx
+network_wordpress: wordpress
+network_postgres: postgres

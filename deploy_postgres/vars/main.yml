@@ -1,13 +1,3 @@
 ---
 # vars file for deploy_postgres
-postgres_db_name: db
-postgres_db_username: root
-postgres_db_pass: root
-postgres_db_memory: 1G
-postgres_port: 5432
 
-postgres_pg_port: 5050
-postgres_pg_memory: 400M
-
-postgres_pg_mail: root@mail.ru
-postgres_pg_pass: root

@@ -1,2 +1,14 @@
 ---
 # defaults file for deploy_wordpress
+
+wordpress_mysql_passroot: wordpress
+wordpress_mysql_db: wordpress
+wordpress_mysql_user: root
+wordpress_mysql_userpass: wordpress
+wordpress_mysql_memory: 1G
+
+wordpress_phpadmin_port: 3333
+wordpress_phpadmin_memory: 400M
+
+wordpress_port: 8080
+wordpress_memory: 700M

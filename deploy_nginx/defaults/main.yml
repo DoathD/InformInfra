@@ -1,4 +1,6 @@
 ---
 # defaults file for deploy_nginx
+network_nginx: nginx
+
 nginx_port: 80
 nginx_memory: 512M

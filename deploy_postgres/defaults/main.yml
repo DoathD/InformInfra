@@ -1,5 +1,6 @@
 ---
 # defaults file for deploy_postgres
+network_postgres: postgres
 
 postgres_db_name: db
 postgres_db_username: root

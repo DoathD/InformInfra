@@ -3,3 +3,9 @@
 
 [servers:vars]
 ansible_user=root
+
+[local]
+localhost
+
+[local:vars]
+ansible_user=root

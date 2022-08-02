@@ -1,4 +1,3 @@
-
 ---
 # tasks file for deploy_wordpress
 - name: Pull image WordPress

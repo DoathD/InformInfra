@@ -1,5 +1,6 @@
 ---
 # defaults file for deploy_wordpress
+network_wordpress: wordpress
 
 wordpress_mysql_passroot: wordpress
 wordpress_mysql_db: wordpress

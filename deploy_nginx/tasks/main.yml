@@ -1,4 +1,3 @@
-
 ---
 # tasks file for deploy_nginx
     - name: Pull image Nginx
